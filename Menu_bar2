@@ -1,0 +1,38 @@
+from tkinter import*
+
+from tkinter.ttk import*
+import time
+
+screen = Tk()
+screen.geometry("400x350")
+screen.config(background="white")
+# function for progress bar
+
+def progress():
+    bar["value"] = 20
+    screen.update_idletasks()
+    time.sleep(1)
+    bar["value"] = 40
+    screen.update_idletasks()
+    time.sleep(1)
+    bar["value"] = 60
+    screen.update_idletasks()
+    time.sleep(1)
+    bar["value"] = 80
+    screen.update_idletasks()
+    time.sleep(1)
+    bar["value"] = 100
+    
+
+
+
+
+button = Button(screen, text="Loading", command= progress) 
+button.place(x=170,y=160)
+
+bar = Progressbar(screen, orient = HORIZONTAL, length = 100, mode= "determinate") 
+bar.place(x= 160, y=190)
+
+
+
+screen.mainloop()
