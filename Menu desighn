@@ -1,0 +1,15 @@
+from tkinter import*
+screen = Tk()
+screen.geometry("600x500")
+
+screen.config(background="light blue")
+
+username = Label(screen, text="username")
+username.place( x= 220, y=50)
+
+password = Label(screen, text="password")
+password.place( x= 220, y=100)
+
+
+
+screen.mainloop()
