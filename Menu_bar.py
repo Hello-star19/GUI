@@ -37,6 +37,8 @@ View.add_command(label="Output",command=None)
 screen.config(menu=menu_bar)
 
 
+button = Button(screen, text="Loading", font=("Arial", 10))
+button.place(200,175)
 
 
 
