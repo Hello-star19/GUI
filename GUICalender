@@ -1,0 +1,42 @@
+from tkinter import *
+import calendar
+
+def showCalender():
+    newgui = Tk()
+    newgui.geometry("500x500")
+    newgui.config(bg="White")
+    newgui.title("Calender")
+
+    fetch_year= int(Year_field.get())
+    Cal_content = calendar.calendar(fetch_year)
+    Cal_year = Label(newgui, text=Cal_content,font="Consolas 10 bold" )
+    Cal_year.grid(row= 4,column=1, padx=20 ,pady=20)
+    
+    newgui.mainloop()
+
+
+
+#Driver Code!
+if __name__=="__main__":
+
+    window = Tk()
+    window.geometry("700x500")
+    window.title("Calender")
+    window.config(bg="Light Blue")
+
+    Cal= Label(window, text="Calender", bg="White", fg="Black", font="Arial")
+    Cal.place(x=250, y= 50)
+    Year = Label(window, text="Year", bg="White", fg="Black", font="Arial")
+    Year.place(x= 300, y= 150)
+
+    Year_field=Entry(window)
+    Year_field.place(x=250,y=180)
+
+    show = Button(window,text = ("Show"), bg="Yellow", fg=("Black"), command=showCalender)
+    show.place(x=300, y=200)
+
+    exit = Button(window, text=("Exit"), bg=("Yellow"), fg=("Black"), command=exit)
+    exit.place(x=300, y=240)
+
+
+    window.mainloop()
