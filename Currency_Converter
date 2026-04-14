@@ -1,0 +1,54 @@
+from tkinter import *
+
+window = Tk()
+
+window.geometry("800x250")
+window.title("Currency Convertor")
+window.configure(background="Blue")
+
+def convert():
+    pound = float(dollar_input.get())*0.76
+    peso = float(dollar_input.get())*59.76
+    euro = float(dollar_input.get())*0.85
+    pound_conversion.delete("1.0",END)
+    pound_conversion.insert(END,pound)
+
+    peso_conversion.delete("1.0",END)
+    peso_conversion.insert(END,peso)
+
+    euro_conversion.delete("1.0",END)
+    euro_conversion.insert(END,euro)
+
+
+# desighning the gui
+
+dollar_label = Label(window, text="Dollar", bg="Yellow", fg="Black")
+dollar_label.place(x=150, y= 60)
+
+dollar_input = IntVar(window)
+dollar_input =Entry(window, textvariable= dollar_input)
+dollar_input.place(x= 200, y= 60)
+
+
+pound_label = Label(window, text = "Pound", bg ="Yellow")
+pound_label.place(x=150, y= 100)
+
+peso_label = Label(window, text="Peso", bg="Yellow", fg="Black")
+peso_label.place(x=150, y= 140)
+
+euro_label = Label(window, text="Euro", bg="Yellow", fg="Black")
+euro_label.place(x=150, y= 180)
+conversion_button = Button(window, text="Convert", bg= "Black", fg="White", 
+                           
+                           bd = 5, command = convert )
+conversion_button.place(x=350, y=60)
+
+pound_conversion = Text(window, height= 2, width = 15, fg = "Blue")
+peso_conversion = Text(window, height= 2, width = 15, fg = "Blue")
+euro_conversion = Text(window, height= 2, width = 15, fg = "Blue")
+
+pound_conversion.place(x=200, y=100 )
+peso_conversion.place(x=200, y=140 )
+euro_conversion.place(x=200, y= 180)
+
+window.mainloop()
