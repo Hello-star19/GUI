@@ -1,0 +1,42 @@
+from tkinter import *
+import random
+import tkinter.font as font 
+
+
+
+player_score = 0
+computer_score = 0
+Options = [("rock",0),("paper",1), ("scissors",2)]
+
+# Creating the GUI
+window = Tk()
+window.geometry("500x250")
+window.configure(background="Green")
+
+app_font= font.Font(size=14)
+game_title = Label(window, text= "Rock Paper Scissors", bg = "Green", fg= "Black", font=font.Font(size=20))
+game_title.pack()
+
+winner_label = Label(window, text=("Let's play the game"), bg= "Green", font=app_font)
+winner_label.pack()
+
+inputframe = Frame (window, bg=("White"))
+inputframe.pack()
+
+player_options = Label(inputframe, text="You're options are:", font = app_font,)
+player_options.grid(row=0, column=0, pady=7)
+rock_button = Button(inputframe, text="Rock", font=app_font, bd=7, bg="Light Blue", command = None)
+rock_button.grid(row=1, column=1, pady=5)
+
+paper_button = Button(inputframe, text="Paper", font=app_font, bd=7, bg="Light Blue", command = None)
+paper_button.grid(row=1, column=2, pady=5)
+
+Scissors_button = Button(inputframe, text="Scissors", font=app_font, bd=7, bg="Light Blue", command = None)
+Scissors_button.grid(row=1, column=3, pady=5)
+
+# Score and Player Choice 
+score_label = Label(inputframe, text="score!", font=app_font, bg = "Light Blue")
+score_label.grid(row=2, column=0)
+
+
+window.mainloop()
