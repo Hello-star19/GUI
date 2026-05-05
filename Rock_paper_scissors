@@ -22,15 +22,15 @@ def player_wins():
     global computer_score
     player_score = player_score+1
     winner_label.config(text="You won!")
-    computer_score_label.cpnfig(text=f"you're score is :{computer_score}")
-    player_score_label.config(text=f"Player score: {computer_score}")
+    computer_score_label.config(text=f"you're score is :{computer_score}")
+    player_score_label.config(text=f"Player score: {player_score}")
 
 def tie():
     global player_score
     global computer_score
-    winner_label.comfig(text="Its a tie!")
-    computer_score_label.cpnfig(text=f"you're score is :{computer_score}")
-    player_score_label.config(text=f"Player score: {computer_score}")
+    winner_label.config(text="Its a tie!")
+    computer_score_label.config(text=f"you're score is :{computer_score}")
+    player_score_label.config(text=f"Player score: {player_score}")
 
 def get_computer_choice():
     return random.choice(Options)
@@ -42,8 +42,8 @@ def get_player_choice(player_input):
     print(player_input)
     computer_input = get_computer_choice()
     print(computer_input)
-    player_choice_label.config(text="You selected:" + player_input[0], fg= "Light Blue" )
-    computer_choice_label.config(text="The computer has selected:" + player_input[0], fg= "Light Blue")
+    player_choice_label.config(text="You selected:" + player_input[0], fg= "Brown" )
+    computer_choice_label.config(text="The computer has selected:" + computer_input[0], fg= "Brown")
 
     if player_input == computer_input:
         tie()
@@ -60,6 +60,14 @@ def get_player_choice(player_input):
 
         elif computer_input[1] ==2 :#scissors
             computer_wins()
+    
+    elif player_input[1] == 2: #Player selected scissors
+        if computer_input[1]==0: #rock
+            computer_wins()
+
+        elif computer_input[1]==1: #paper
+            player_wins()
+        
 
 
 
@@ -81,13 +89,14 @@ inputframe.pack()
 
 player_options = Label(inputframe, text="You're options are:", font = app_font,)
 player_options.grid(row=0, column=0, pady=7)
-rock_button = Button(inputframe, text="Rock", font=app_font, bd=7, bg="Light Blue", command = None)
+
+rock_button = Button(inputframe, text="Rock", font=app_font, bd=7, bg="Light Blue", command = lambda: get_player_choice(Options[0]))
 rock_button.grid(row=1, column=1, pady=5)
 
-paper_button = Button(inputframe, text="Paper", font=app_font, bd=7, bg="Light Blue", command = None)
+paper_button = Button(inputframe, text="Paper", font=app_font, bd=7, bg="Light Blue", command = lambda: get_player_choice(Options[1]))
 paper_button.grid(row=1, column=2, pady=5)
 
-Scissors_button = Button(inputframe, text="Scissors", font=app_font, bd=7, bg="Light Blue", command = None)
+Scissors_button = Button(inputframe, text="Scissors", font=app_font, bd=7, bg="Light Blue", command = lambda: get_player_choice(Options[2]))
 Scissors_button.grid(row=1, column=3, pady=5)
 
 # Score and Player Choice 
@@ -121,3 +130,4 @@ computer_score_label.grid(row =4, column= 3, pady= 3)
 
 
 window.mainloop()
+
