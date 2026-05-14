@@ -1,0 +1,19 @@
+from tkinter import *
+from tkinter.ttk import*
+import random
+from time import strftime
+
+
+screen = Tk()
+
+screen.title("Digital Clock")
+screen.geometry("900x250")
+def time():
+    string = strftime("%H:%M:%S %p %b %a")      
+    label.config(text=string)
+    label.after(1000,time)  # calling time function after every 1000 milliseconds
+
+label = Label(screen,font=("Calibri",90,"bold"), background= "Green", foreground="white" )
+label.pack(anchor= "center")
+
+time()
