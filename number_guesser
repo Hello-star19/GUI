@@ -1,0 +1,71 @@
+from tkinter import *
+import tkinter.messagebox
+import random
+import math
+
+window = Tk()
+window.title("Number Geusser")
+window.geometry("400x450")
+# window.minsize(400,400) # alternate window size
+window.configure(bg="green")
+
+number = random.randint(0,30)
+
+
+def check_number():
+    guess = int(text_guess.get())
+
+    if guess < number:
+        tkinter.messagebox.showinfo("Low","Your guess is too low.")
+    elif guess > number:
+        tkinter.messagebox.showinfo("High", "Your guess is too high")
+    else:
+        tkinter.messagebox.showinfo("Correct", "You guessed the number correctly")
+
+def button_confirm():
+    name = text_name.get()
+
+    tkinter.messagebox.showinfo("Greatting", "Welcome "+name+" I am thinking of a number between 1-30")
+
+
+#GUI
+
+window_label = Label(window, text="Welcome to our game!")
+
+window_label.pack(side=TOP)
+label_name = Label(window, text="whats your name?", bg= "light blue", fg="black")
+label_name.place(x= 20, y=100)
+
+text_name = Entry(window, width = 10)
+text_name.place(x=20 ,y= 150 )
+
+ok_button = Button(window, text="OK", bg="Orange", bd=10, command= button_confirm )
+
+ok_button.place(x=250, y= 100)
+
+geuss_label= Label(window, text="Have a geuss")
+geuss_label.place(x= 20, y=180)
+
+text_guess=Entry(window, width=10)
+text_guess.place(x=120, y=180)
+
+guess_button = Button(window, text="Guess",bg ="orange" , bd = 20, command=check_number)
+guess_button.place(x=250, y= 160)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+window.mainloop()
