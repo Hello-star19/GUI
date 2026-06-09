@@ -1,0 +1,45 @@
+from tkinter import *
+from tkinter import messagebox
+import time
+
+window = Tk()
+window.title("Countdowm")
+window.geometry("400x450")
+window.configure(bg="green")
+
+def submit():
+    try:
+        temp = int(hour.get()) * 3600 +int(minute.get()) * 60 + int(second.get())
+    except:
+        print("Please enter a correct value")
+
+    while temp >-1:
+        mins, secs = divmod(temp,60)
+        hours = 00
+        if mins >= 60:
+            hours, mins = divmod(mins,60)
+        hour.set(f"{hours:02d}")
+        minute.set(f"{mins:02d}")
+        second.set(f"{secs:02d}")
+        window.update()
+        time.sleep(1)
+    
+        if temp ==0:
+            messagebox.showinfo("Time countdown", "Time's up")
+        temp = temp - 1
+
+hour = StringVar()
+minute = StringVar()
+second = StringVar()
+hourEntry = Entry(window, width=3, font=("Arial", 15,""), textvariable=hour)
+hourEntry.place(x=60, y= 40)
+
+minuteEntry = Entry(window, width =3, font=("Arial",15,""), textvariable=minute)
+minuteEntry.place(x=150, y=40)
+
+secondEntry = Entry(window, width =3, font=("Arial",15,""), textvariable=second)
+secondEntry.place(x=200, y=40)
+
+start_button = Button(window, text ="Submit your time", bd=5, bg="Yellow", fg="red", font=("Arial",16), command = submit)
+start_button.place(x= 130, y= 200)
+window.mainloop()
