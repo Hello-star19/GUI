@@ -28,9 +28,10 @@ def submit():
             messagebox.showinfo("Time countdown", "Time's up")
         temp = temp - 1
 
-hour = StringVar()
-minute = StringVar()
-second = StringVar()
+hour = StringVar(value="00")
+minute = StringVar(value="00")
+second = StringVar(value="00")
+
 hourEntry = Entry(window, width=3, font=("Arial", 15,""), textvariable=hour)
 hourEntry.place(x=60, y= 40)
 
