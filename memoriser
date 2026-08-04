@@ -1,49 +1,155 @@
 from tkinter import *
 from tkinter import messagebox
-from tkinter.filedialog import *
+from tkinter.filedialog import askopenfilename, asksaveasfilename
+
 
 window = Tk()
 window.title("Memoriser app")
 window.geometry("800x500")
 
+
 def add_item():
-    pass
+    new_item = item.get().strip()
+
+    if new_item == "":
+        messagebox.showwarning("Missing item", "Please enter an item.")
+        return
+
+    listbox.insert(END, new_item)
+    item.delete(0, END)
+    item.focus()
+
 
 def open_file():
-    pass
+    filename = askopenfilename(
+        title="Open list",
+        filetypes=[
+            ("Text files", "*.txt"),
+            ("All files", "*.*")
+        ]
+    )
+
+    if filename == "":
+        return
+
+    try:
+        with open(filename, "r", encoding="utf-8") as file:
+            listbox.delete(0, END)
+
+            for line in file:
+                saved_item = line.strip()
+
+                if saved_item != "":
+                    listbox.insert(END, saved_item)
+
+    except OSError:
+        messagebox.showerror("Error", "The file could not be opened.")
+
 
 def save_file():
-    pass
+    filename = asksaveasfilename(
+        title="Save list",
+        defaultextension=".txt",
+        filetypes=[
+            ("Text files", "*.txt"),
+            ("All files", "*.*")
+        ]
+    )
+
+    if filename == "":
+        return
+
+    try:
+        with open(filename, "w", encoding="utf-8") as file:
+            for saved_item in listbox.get(0, END):
+                file.write(saved_item + "\n")
+
+        messagebox.showinfo("Saved", "Your list has been saved.")
+
+    except OSError:
+        messagebox.showerror("Error", "The file could not be saved.")
+
 
 def delete_item():
-    pass
+    selected_item = listbox.curselection()
 
-fopen = Button(window, text = "open", command = None )
+    if not selected_item:
+        messagebox.showwarning(
+            "No selection",
+            "Please select an item to delete."
+        )
+        return
 
-
-fsave = Button(window, text = "Save list", command = None )
-
-ldelete = Button (window, text= "Delete item", command = None)
-
-ladd = Button(window, text = "add the list", command = None )
-
-item = Entry (window, width =30)
-item.place(x = 300, y = 150)
+    listbox.delete(selected_item[0])
 
 
+# Buttons
+fopen = Button(
+    window,
+    text="Open",
+    width=12,
+    command=open_file
+)
+
+fsave = Button(
+    window,
+    text="Save list",
+    width=12,
+    command=save_file
+)
+
+ldelete = Button(
+    window,
+    text="Delete item",
+    width=12,
+    command=delete_item
+)
+
+ladd = Button(
+    window,
+    text="Add item",
+    width=12,
+    command=add_item
+)
+
+
+# Entry box
+item = Entry(window, width=30)
+item.place(x=300, y=150)
+
+
+# Frame containing the listbox and scrollbar
 frame = Frame(window)
-frame.place (x=200, y=180)
-scroll = Scrollbar(frame, orient = "vertical")
-listbox = Listbox(frame, width = 50 , yscrollcommand = Scrollbar.set, bg = "red")
-for i in range (1,100):
+frame.place(x=200, y=180)
+
+scroll = Scrollbar(frame, orient="vertical")
+
+listbox = Listbox(
+    frame,
+    width=50,
+    height=15,
+    yscrollcommand=scroll.set,
+    bg="red"
+)
+
+for i in range(1,101):
     listbox.insert(END, "Item" + str(i))
 
-listbox.pack( side = LEFT, padx =5)
-scroll.pack(side = RIGHT, fill = Y)
-scroll.config(command = listbox.yview)
-frame.pack(side= BOTTOM)
-fopen.place(x=20, y = 250)
-fsave.place(x=300, y= 20)
-ladd.place(x= 300, y= 100)
-ldelete.place(x=650, y = 250)
+listbox.pack(side=LEFT, padx=5)
+scroll.pack(side=RIGHT, fill=Y)
+
+scroll.config(command=listbox.yview)
+
+
+# Button positions
+fopen.place(x=20, y=250)
+fsave.place(x=350, y=20)
+ladd.place(x=350, y=100)
+ldelete.place(x=650, y=250)
+
+
+# Pressing Enter adds the item
+item.bind("<Return>", lambda event: add_item())
+
+item.focus()
 window.mainloop()
