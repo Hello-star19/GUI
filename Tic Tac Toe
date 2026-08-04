@@ -1,0 +1,55 @@
+from tkinter import *
+import random 
+from functools import partial
+from tkinter import messagebox
+from copy import deepcopy
+
+sign = 0 
+global board
+board = [[" " for x in range(3)]for y in range(3)]
+print(board)
+
+def winner(b,l):  #board= b l= player
+    return(
+        #horizontal win 
+        (b[0][0]==l  and b[0][1]==l and b[0][2]==l) or 
+        (b[1][0]==l and b[1][1]==l and b[1][2]==l) or
+        (b[2][0]==l and b[2][1]==l and b[2][2]==l) or
+        #vertical wins
+        (b[0][0]==l and b[1][0]==l and b[2][0]==l) or
+        (b[0][1]==l and b[1][1]==l and b[2][1]==l) or
+        (b[0][2]==l and b[1][2]==l and b[2][2]==l) or
+
+        #diagonal wins
+        (b[0][0]==l and b[1][1]==l and b[2][2]==l) or
+        (b[2][0]==l and b[1][1]==l and b[0][2]==l)
+
+# gb = game board l1= player one l2 = player 2 
+def get_text(i,j,gb,l1,l2): # declaring functions to configure the text on buttons while playing with another player
+    global sighn
+    if board[i][j] = " "
+    if sign % 2 == 0:
+        l1.config(state=DISABLED)
+        l2.config(state=ACTIVE)
+        board[i][j]= "X"
+    else: 
+        l1.config(state=ACTIVE)
+        l2.config(state=DISABLED)
+        board[i][j] = "O"
+    sign +=1
+    button[i][j].config(text=board[i][j])
+
+    if winner(board, "X"):
+        gb.destroy()
+        box = messagebox.showinfo("Winner", player 1 won the match")
+    elif winner(board,"O"):
+        gb.destroy()
+        box = messagebox.showinfo("Winner", player 1 won the match)  
+    elif(if full()):
+        gb.destroy()
+        box = messagebox.showinfo("Draw, the game is a draw")                       
+
+
+
+
+
