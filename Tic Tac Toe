@@ -22,32 +22,118 @@ def winner(b,l):  #board= b l= player
 
         #diagonal wins
         (b[0][0]==l and b[1][1]==l and b[2][2]==l) or
-        (b[2][0]==l and b[1][1]==l and b[0][2]==l)
+        (b[2][0]==l and b[1][1]==l and b[0][2]==l)  )
 
 # gb = game board l1= player one l2 = player 2 
 def get_text(i,j,gb,l1,l2): # declaring functions to configure the text on buttons while playing with another player
-    global sighn
-    if board[i][j] = " "
-    if sign % 2 == 0:
-        l1.config(state=DISABLED)
-        l2.config(state=ACTIVE)
-        board[i][j]= "X"
-    else: 
-        l1.config(state=ACTIVE)
-        l2.config(state=DISABLED)
-        board[i][j] = "O"
-    sign +=1
-    button[i][j].config(text=board[i][j])
+    global sign
+    if board[i][j] == " ":
+
+
+        if sign % 2 == 0:
+            l1.config(state=DISABLED)
+            l2.config(state=ACTIVE)
+            board[i][j]= "X"
+        else: 
+            l1.config(state=ACTIVE)
+            l2.config(state=DISABLED)
+            board[i][j] = "O"
+        sign +=1
+        button[i][j].config(text=board[i][j])
 
     if winner(board, "X"):
         gb.destroy()
-        box = messagebox.showinfo("Winner", player 1 won the match")
+        box = messagebox.showinfo("Winner", "player 1 won the match")
     elif winner(board,"O"):
         gb.destroy()
-        box = messagebox.showinfo("Winner", player 1 won the match)  
-    elif(if full()):
+        box = messagebox.showinfo("Winner", "player 1 won the match")  
+    elif(isfull()):
         gb.destroy()
-        box = messagebox.showinfo("Draw, the game is a draw")                       
+        box = messagebox.showinfo("Draw", "the game is a draw")                       
+
+#check if the board is full or not 
+def isfull():
+    flag = True
+    for i in board:
+        if (i.count("")>0):
+            flag= False
+    return flag
+
+
+def isfree():
+    return board[i][j]==" "
+
+def gameboard_player(game_board,l1,l2):
+    global button
+    button=[]
+    for i in range(3):
+        m= 3+i
+        button.append(i)
+        button[i] = []
+
+        for j in range (3):
+            n=j
+            button[i].append(j)
+            get_t = partial(get_tect, i,j,game_board,l1, l2)
+            button[i][j] = Button(game_board,bd=5,bg="green",fg="yellow", command=get_t, height=4, width=8)
+            button[i][j].grid(row=m, column = n)
+    game_board.mainloop()
+
+
+# player vs computer
+
+
+
+#initalise the gameboard to play with another player
+
+def withplayer(game_board):
+    game_board.destroy()
+    game_board = Tk()
+    game_board.title("Tic Tac Toe")
+    l1 = Button(game_board, text = "player 1: X", width = 10, bg="pink", fg="blue")
+    l1.grid(row=1, column=1)
+
+    l2 = Button(game_board,text = "player2 : O", width= 10, bg="green", state= DISABLED )
+    l2 = grid(row = 2, column = 1)
+    gameboard_pl(game_board, l1, l2)
+
+def play():
+    menu = Tk()
+    menu.geometry("250x250")
+    menu.title=("Tic Tac Toe")
+    wpl = partial(withplayer, menu)
+    head = Button(menu, text="--- Welcome to tic-tac-toe---", 
+                  activeforeground="red",
+                  activebackground= "yellow",
+                  bg="red",
+                  fg="yellow",
+                  width =500,
+                  font="summer",
+                  bd=3
+                  )
+    head.pack(side="top")
+
+
+    menu.mainloop()
+
+#call main function
+
+if __name__=="__main__":
+    play()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
