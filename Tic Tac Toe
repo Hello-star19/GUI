@@ -83,7 +83,7 @@ def gameboard_player(game_board,l1,l2):
 # player vs computer
 def pc():
     possiblemove = []
-    for i in range(len(board))):
+    for i in range(len(board)):
         for j in range(len(board[i])):
             if board [i][j] == " ":
                 possiblemove.append([i,j])
@@ -102,6 +102,83 @@ def pc():
             for i in [[0,0],[0,2],[2,0],[2,2]]:
                 corner.append(i)
 
+            if len(corner)>0:
+                move = random.randint(0,len(corner)-1)
+                return corner[move]
+
+        edge = []
+        for i in possiblemove:
+            for i in [[0,1],[1,0],[1,2],[2,1]]:
+                edge.append(i)
+
+            if len(edge) >0:
+                move = random.randint(0,len(edge)-1)
+                return corner[move]
+
+def get_text_pc(i,j,gb,l1,l2):
+    global sign 
+    if board[i][j] == " ":
+
+        if sign % 2 ==0:
+            l1.config(state = DISABLED)
+            l2.config(state = ACTIVE)
+            board[i][j] = "X"
+        else:
+            l1.config(state = ACTIVE)
+            l2.config(state= DISABLED)
+            board[i][j] = "o"
+        sign +=1
+        button[i][j].config(text=board[i][j])
+        x = True
+
+        if winner(board, "X"):
+            gb.destroy()
+            x = False
+            box = messagebox.showinfo("Winner", "Player won the match")
+        elif winner(board,"o"):
+            gb.destroy()
+            x = False
+            box= messagebox.showinfo("Winner", "The computer won the match ")
+        elif(isfull):
+            gb.destroy()
+            x = False
+            box = messagebox.showinfo("Draw", "The game is a draw")
+
+        if(x):
+            if sign%2 !=0:
+                move = pc()
+
+                button[move[0]][move[1]].config(state=DISABLED)
+                get_text_pc(move[0],move[1],gb,l1,l2)
+
+
+def gameboard_pc(game_board,l1,l2):
+    global button
+    button = []
+    for i in range(3):
+        m = 3+i
+        button.append(i)
+        button[i] = []
+
+        for j in range (3):
+            n=j
+            button[i].append(j)
+            get_t = partial(get_text_pc, i,j,game_board,l1,l2)
+            button[i][j] =Button(game_board,bd=5 , bg= "green", height=4, width=7, command= get_t)
+            button[i][j].grid(row=m, column = n)
+        game_board.mainloop()
+
+def withpc(gameboard):
+    pass
+
+
+    
+
+
+            
+                 
+
+    
 
 #initalise the gameboard to play with another player
 
